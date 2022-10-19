@@ -1,0 +1,166 @@
+<template>
+  <div>
+    <!--
+
+     Popup z opisem.
+
+    -->
+    <div class="root">
+      <teleport to="#modalBox">
+        <div class="modal" v-if="isModalVisible">
+          <ModalComponent :product="this.product" @close="closeModal"></ModalComponent>
+        </div>
+      </teleport>
+    </div>
+    <!--
+
+    Tytuł strony.
+
+    -->
+    <div class="text-center" style="margin-top: 3em">
+      <h1 class="display-1" style="font-size: 120px; font-weight: 400">
+        <b>OrderShop</b>
+      </h1>
+      <h2 class="display-1" style="font-size: 60px; font-weight: 200; margin-top: 5px">
+        <b>Zamawiarka produktów</b>
+      </h2>
+    </div>
+
+    <div class="div-line"></div>
+
+    <!--
+
+    Slider.
+
+    -->
+    <div class="small-divider"></div>
+
+    <!--
+    <SliderComponent />
+    -->
+    <!--
+
+    Div z promowanymi produktami.
+
+    -->
+
+    <div class="small-divider"></div>
+
+    <div class="small-divider"></div>
+
+    <PromotedComponent @showModal="showModal" :serverAddress="serverAddress" />
+
+    <!--
+
+    Przycisk zamów - przejdzie do podsumowania zamówienia.
+
+    -->
+
+    <div class="small-divider"></div>
+
+    <div class="container text-center">
+      <button
+        class="place-order-btn button-style button-ok"
+        style="font-size: 40px; height: 100px; background-color: green; color: white"
+        @click="goToSummaryPage"
+      >
+        ZAMÓW!
+      </button>
+    </div>
+
+    <!--
+
+    Div z ocenami.
+
+    -->
+
+    <div class="small-divider"></div>
+
+    <div class="small-divider"></div>
+
+    <OpinionComponent />
+
+    <!--
+
+    Form z kontaktem.
+
+    -->
+
+    <div class="small-divider"></div>
+
+    <div class="div-line"></div>
+
+    <div class="small-divider"></div>
+
+    <ContactFormComponent :serverAddress="serverAddress" />
+  </div>
+</template>
+
+<script>
+import router from "@/router";
+import OpinionComponent from "../components/OpinionComponent.vue";
+import ContactFormComponent from "../components/ContactFormComponent.vue";
+import PromotedComponent from "../components/PromotedComponent.vue";
+import ModalComponent from "@/components/ModalComponent.vue";
+
+export default {
+  name: "HomeView",
+  data() {
+    return {
+      isModalVisible: false,
+      product: {},
+    };
+  },
+  props: {
+    serverAddress: String,
+  },
+  components: {
+    OpinionComponent,
+    ContactFormComponent,
+    PromotedComponent,
+    ModalComponent,
+  },
+  //Inicjalizacja strony.
+  created() {
+    document.title = "OrderShop";
+  },
+  methods: {
+    //Pokazanie popupu.
+    showModal(product) {
+      this.isModalVisible = true;
+      this.product = product;
+    },
+    //Zamknięcie popupu.
+    closeModal() {
+      this.isModalVisible = false;
+    },
+    //Przejście na stronę podsumowania zamówienia.
+    goToSummaryPage() {
+      router.push({ name: "summary", params: { serverAddress: this.serverAddress } });
+    },
+  },
+};
+</script>
+
+<style scoped>
+.root {
+  position: relative;
+}
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal > div {
+  background-color: #fff;
+  padding: 50px;
+  border-radius: 10px;
+}
+</style>
