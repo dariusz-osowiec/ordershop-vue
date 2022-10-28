@@ -30,6 +30,11 @@ const routes = [
     name: "privacy",
     component: () => import("../views/PrivacyView.vue"),
   },
+  {
+    path: "/account",
+    name: "account",
+    component: () => import("../views/PrivacyView.vue"),
+  },
 ];
 
 const router = createRouter({

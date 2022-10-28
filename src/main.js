@@ -6,6 +6,7 @@ import "./assets/css/site.css";
 import "./assets/css/star.css";
 import "./assets/css/shopping_basket.css";
 import "./assets/css/check_circle.css";
+import "./assets/css/account.css"
 
 createApp(App).use(router).mount("#app");
 

@@ -2,10 +2,10 @@
   <!--
     Panel formularza kontaktowego.
   -->
-  <div style="background-color: #ddfacf">
+  <div style="background-color: #ddfacf; height: 30%">
     <div class="text-center mb-5" style="margin-top: 2em; padding-top: 20px">
-      <h3 class="display-3"><b>Masz pytanie?</b></h3>
-      <h4 class="display-4">Zadaj je nam, a my odpiszemy jak najszybciej!</h4>
+      <h5 class="display-3"><b>Masz pytanie?</b></h5>
+      <h6 class="display-4">Zadaj je nam, a my odpiszemy jak najszybciej!</h6>
     </div>
     <form
       method="post"

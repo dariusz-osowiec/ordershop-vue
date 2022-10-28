@@ -59,18 +59,31 @@
     <div class="small-divider"></div>
 
     <div class="container text-center">
-      <button
-        class="place-order-btn button-style button-ok"
-        style="font-size: 40px; height: 100px; background-color: green; color: white"
-        @click="goToSummaryPage"
-      >
+      <button class="place-order-btn button-style button-ok"
+        style="font-size: 40px; height: 100px; background-color: green; color: white" @click="goToSummaryPage">
         ZAMÓW!
       </button>
     </div>
 
+    <div class="small-divider"></div>
+
+    <div class="div-line"></div>
+
     <!--
 
-    Div z ocenami.
+      Nadchodzace wydarzenia.
+
+    -->
+    <div class="small-divider"></div>
+
+    <div class="small-divider"></div>
+
+    <EventsComponent :serverAddress="serverAddress" />
+
+
+    <!--
+
+      Mapka.
 
     -->
 
@@ -78,7 +91,7 @@
 
     <div class="small-divider"></div>
 
-    <OpinionComponent />
+    <MapComponent />
 
     <!--
 
@@ -88,8 +101,6 @@
 
     <div class="small-divider"></div>
 
-    <div class="div-line"></div>
-
     <div class="small-divider"></div>
 
     <ContactFormComponent :serverAddress="serverAddress" />
@@ -98,8 +109,9 @@
 
 <script>
 import router from "@/router";
-import OpinionComponent from "../components/OpinionComponent.vue";
 import ContactFormComponent from "../components/ContactFormComponent.vue";
+import EventsComponent from "@/components/EventsComponent.vue";
+import MapComponent from "@/components/MapComponent.vue";
 import PromotedComponent from "../components/PromotedComponent.vue";
 import ModalComponent from "@/components/ModalComponent.vue";
 
@@ -115,8 +127,9 @@ export default {
     serverAddress: String,
   },
   components: {
-    OpinionComponent,
     ContactFormComponent,
+    EventsComponent,
+    MapComponent,
     PromotedComponent,
     ModalComponent,
   },
@@ -141,26 +154,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.root {
-  position: relative;
-}
-.modal {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.1);
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal > div {
-  background-color: #fff;
-  padding: 50px;
-  border-radius: 10px;
-}
-</style>

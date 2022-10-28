@@ -17,56 +17,30 @@
         <div v-else-if="productsInBasket.length > 0">
           <div :key="product.id" v-for="product in productsInBasket">
             <div class="row mb-3">
-              <div
-                class="col-sm-3"
-                style="
+              <div class="col-sm-3" style="
                   border-style: groove;
                   border-color: lightgreen;
                   border-width: 1px;
                   contain: content;
-                "
-              >
+                ">
                 <img :src="product.imageUrl" width="100" height="100" />
               </div>
-              <div
-                class="col-sm-9 grid-basket-low grid-basket-high"
-                style="margin-top: auto; margin-bottom: auto"
-              >
-                <div
-                  class="grid-name-low"
-                  style="margin-left: auto; margin-right: auto; max-width: 50%"
-                >
+              <div class="col-sm-9 grid-basket-low grid-basket-high" style="margin-top: auto; margin-bottom: auto">
+                <div class="grid-name-low" style="margin-left: auto; margin-right: auto; max-width: 50%">
                   <h2>
                     <b>{{ product.name }}</b>
                   </h2>
                 </div>
-                <div
-                  class="grid-qty-high grid-qty-low input-group justify-content-center grid-qty-wider"
-                  style=""
-                >
+                <div class="grid-qty-high grid-qty-low input-group justify-content-center grid-qty-wider" style="">
                   <div class="input-group-prepend">
-                    <button
-                      class="button-style button-qty"
-                      style="font-size: 30px"
-                      @click="lowerQty(product)"
-                    >
+                    <button class="button-style button-qty" style="font-size: 30px" @click="lowerQty(product)">
                       <b>-</b>
                     </button>
                   </div>
-                  <input
-                    class="form-control text-center"
-                    style="background-color: white; color: black"
-                    type="number"
-                    min="1"
-                    @keyup.enter="onEnterPressed(product)"
-                    :value="product.qty"
-                  />
+                  <input class="form-control text-center" style="background-color: white; color: black" type="number"
+                    min="1" @keyup.enter="onEnterPressed(product)" :value="product.qty" />
                   <div class="input-group-append">
-                    <button
-                      class="button-style button-qty"
-                      style="font-size: 30px"
-                      @click="raiseQty(product)"
-                    >
+                    <button class="button-style button-qty" style="font-size: 30px" @click="raiseQty(product)">
                       <b>+</b>
                     </button>
                   </div>
@@ -77,11 +51,7 @@
                   </h2>
                 </div>
                 <div class="material-symbols-outlined grid-delete-low grid-delete-high">
-                  <button
-                    @click="removeFromBasket(product)"
-                    class="button-cancel"
-                    style="width: 100%; height: 100%"
-                  >
+                  <button @click="removeFromBasket(product)" class="button-cancel" style="width: 100%; height: 100%">
                     <span>delete</span>
                   </button>
                 </div>
@@ -91,87 +61,19 @@
           </div>
         </div>
       </section>
+      <div class="medium-divider"></div>
       <!--
 
         Div z danymi osobowymi.
 
         -->
-      <div class="medium-divider"></div>
+      <h2>Konto</h2>
+      <div class="div-line widen-lines" style="width: 100%"></div>
+      <div class="small-divider"></div>
+      <div class="small-divider"></div>
       <div>
-        <h2>Dane do wysyłki</h2>
-        <div class="div-line widen-lines" style="width: 100%"></div>
-        <div class="small-divider"></div>
-        <div class="small-divider"></div>
-        <div class="small-divider"></div>
-        <form class="form-login">
-          <input
-            id="nameField"
-            class="login-item"
-            type="text"
-            placeholder="Imię"
-            required
-            style="margin-left: auto; margin-right: auto"
-            v-model="name"
-          />
-          <input
-            id="surnameField"
-            class="login-item"
-            type="text"
-            placeholder="Nazwisko"
-            required
-            style="margin-left: auto; margin-right: auto"
-            v-model="surname"
-          />
-          <input
-            id="mailField"
-            class="login-item"
-            type="text"
-            inputmode="email"
-            placeholder="Adres e-mail"
-            style="margin-left: auto; margin-right: auto"
-            v-model="mail"
-          />
-          <input
-            id="phoneField"
-            class="login-item"
-            type="text"
-            inputmode="email"
-            placeholder="Telefon"
-            required
-            style="margin-left: auto; margin-right: auto"
-            v-model="phone"
-          />
-          <input
-            id="streetFieldOne"
-            class="login-item"
-            type="text"
-            inputmode="email"
-            placeholder="Ulica i nr domu"
-            required
-            style="margin-left: auto; margin-right: auto"
-            v-model="address"
-          />
-          <input
-            id="postCodeField"
-            class="login-item"
-            type="text"
-            inputmode="email"
-            placeholder="Kod pocztowy"
-            required
-            style="margin-left: auto; margin-right: auto"
-            v-model="postCode"
-          />
-          <input
-            id="cityField"
-            class="login-item"
-            type="text"
-            inputmode="email"
-            placeholder="Miasto"
-            required
-            style="margin-left: auto; margin-right: auto"
-            v-model="city"
-          />
-        </form>
+        <LoginDataComponent v-if="!isUserLogged"></LoginDataComponent>
+        <LoggedAccountComponent v-if="isUserLogged" @openLoginPopup="openLoginPopup"></LoggedAccountComponent>
       </div>
       <div class="medium-divider"></div>
       <!--
@@ -185,11 +87,8 @@
         <div class="small-divider"></div>
         <div class="small-divider"></div>
         <div class="small-divider"></div>
-        <textarea
-          style="width: 80%; min-height: 100px; resize: vertical"
-          placeholder="Dodaj notę do zamówienia..."
-          v-model="note"
-        ></textarea>
+        <textarea style="width: 80%; min-height: 100px; resize: vertical" placeholder="Dodaj notę do zamówienia..."
+          v-model="note"></textarea>
       </div>
     </div>
     <div class="small-divider"></div>
@@ -209,13 +108,11 @@
       <div class="div-line"></div>
       <div class="small-divider"></div>
       <div class="flex-row" style="text-align: right">
-        <button
-          @click="goToConfirmationPage"
-          class="button-style button-ok"
-          style="width: 100%; height: 80px; font-size: large"
-        >
-          ZAMÓW
+        <button @click="goToConfirmationPage" class="button-style button-ok"
+          style="width: 100%; height: 80px; font-size: 35px;">
+          <b>ZAMÓW</b>
         </button>
+        <h6 style="margin-top: 5px;">Płatności obsługiwane przez PayU</h6>
       </div>
     </div>
   </div>
@@ -223,9 +120,15 @@
 
 <script>
 import router from "@/router";
+import LoginDataComponent from "@/components/LoginDataComponent.vue";
+import LoggedAccountComponent from "@/components/LoggedAccountComponent.vue";
 
 export default {
   name: "SummaryView",
+  components: {
+    LoginDataComponent,
+    LoggedAccountComponent
+  },
   data() {
     return {
       //Koszyk.
@@ -234,17 +137,10 @@ export default {
       productSum: 0.0,
       sumTotal: 0.0,
       postCost: 30.0,
-      //Dane kontaktowe.
-      name: "",
-      surname: "",
-      mail: "",
-      phone: "",
-      address: "",
-      postCode: "",
-      city: "",
-      note: "",
       //Obiekt zamówienia.
       order: {},
+      //Przełączniki (tymczasowe)
+      isUserLogged: true
     };
   },
   props: {
@@ -264,10 +160,8 @@ export default {
       var product = products.find((p) => p.id === item.id);
       product.qty = item.qty;
       product.sum = product.qty * product.price;
-      this.productsInBasket.push(product);
-    });
-    this.productsInBasket.forEach((item) => {
       this.productSum += item.sum;
+      this.productsInBasket.push(product);
     });
     this.sumTotal = this.productSum + this.postCost;
   },
@@ -336,55 +230,10 @@ export default {
     createOrder() {
       let basket = this.readBasket();
       const order = {
-        customer: {
-          name: this.name,
-          surname: this.surname,
-          mail: this.mail,
-          phone: this.phone,
-          address: this.address,
-          postCode: this.postCode,
-          city: this.city,
-        },
         items: basket,
         note: this.note,
       };
       return order;
-    },
-    //Walidacja zamówienia.
-    validateOrder() {
-      if (this.productsInBasket.length === 0) {
-        alert("Brak produktów w koszyku.");
-        return false;
-      }
-      if (this.name.trim().length === 0) {
-        alert("Brak wpisanego imienia.");
-        return false;
-      }
-      if (this.surname.trim().length === 0) {
-        alert("Brak wpisanego nazwiska.");
-        return false;
-      }
-      if (this.mail.trim().length === 0) {
-        alert("Brak wpisanego adresu e-mail.");
-        return false;
-      }
-      if (this.phone.trim().length === 0) {
-        alert("Brak wpisanego numeru telefonu.");
-        return false;
-      }
-      if (this.address.trim().length === 0) {
-        alert("Brak wpisanej ulicy i numeru domu.");
-        return false;
-      }
-      if (this.postCode.trim().length === 0) {
-        alert("Brak wpisanego kodu pocztowego.");
-        return false;
-      }
-      if (this.city.trim().length === 0) {
-        alert("Brak wpisanej miejscowości.");
-        return false;
-      }
-      return true;
     },
     //Stworzenie właściwości.
     createProperty(product, propertyName) {
@@ -398,7 +247,7 @@ export default {
     readBasket() {
       const basket =
         localStorage.getItem("basket") === null ||
-        localStorage.getItem("basket") === undefined
+          localStorage.getItem("basket") === undefined
           ? []
           : localStorage.getItem("basket");
       return JSON.parse(basket);
@@ -414,6 +263,9 @@ export default {
         return [];
       }
     },
+    openLoginPopup() {
+      this.$emit('openLoginPopup');
+    }
   },
 };
 </script>
